@@ -1,0 +1,30 @@
+{
+  "name": "algs",
+  "version": "0.1.0",
+  "description": "Здесь тестируются разного рода алгоритмы и задачи",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexAbS1993/algs.git"
+  },
+  "keywords": [
+    "algorithms",
+    "nodejs",
+    "tasks"
+  ],
+  "author": "Alex Abetov <abetovalex93@gmail.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/AlexAbS1993/algs/issues"
+  },
+  "homepage": "https://github.com/AlexAbS1993/algs#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
