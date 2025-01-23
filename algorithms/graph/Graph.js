@@ -7,6 +7,10 @@ class Graph{
     getVercelCount(){
         return this.#vercels.length
     }
+    addVercel(vercel){
+        this.#vercels.push(vercel)
+        return this
+    }
 }
 
 module.exports = Graph
