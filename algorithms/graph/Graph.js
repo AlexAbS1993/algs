@@ -38,6 +38,9 @@ class Graph{
         })
         return result
     }
+    apply(alg){
+        return alg.execute(this)
+    }
 }
 
 module.exports = Graph

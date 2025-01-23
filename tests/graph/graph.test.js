@@ -58,4 +58,10 @@ describe('Graph является совокупностью Vercel и Edge', () 
         .createEdge(v1, v3)
         expect(graph.getEdgesByVercelTitle('Moscow').length).toBe(2)
     })
+    test('Граф может применить на себя какой-либо алгоритм', () => {
+        let mock_alg = {
+            execute: (graph) => 1
+        }
+        expect(graph.apply(mock_alg)).toBe(1)
+    })
 })
