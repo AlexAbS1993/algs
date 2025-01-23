@@ -28,6 +28,16 @@ class Graph{
         }
         return vercel
     }
+    getEdgesByVercelTitle(title){
+        let vercel = this.getVercelByTitle(title)
+        let result = []
+        this.#edges.forEach(edge => {
+            if(edge.getVercels().includes(vercel)){
+                result.push(edge)
+            }
+        })
+        return result
+    }
 }
 
 module.exports = Graph
