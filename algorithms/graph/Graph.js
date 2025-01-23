@@ -1,4 +1,5 @@
 const Edge = require("./Edge")
+const Vercel = require("./Vercel")
 
 class Graph{
     #edges = []
@@ -12,6 +13,10 @@ class Graph{
     addVercel(vercel){
         this.#vercels.push(vercel)
         return this
+    }
+    addPoint(title){
+        let vercel = new Vercel(title)
+        return this.addVercel(vercel)
     }
     createEdge(v1, v2){
         if (this.#vercels.includes(v1) && this.#vercels.includes(v2)){
