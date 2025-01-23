@@ -37,4 +37,13 @@ describe('Graph является совокупностью Vercel и Edge', () 
             expect(e).toBeDefined()
         }
     })
+    test('Граф может выдавать точку по названию', () => {
+        const v1 = new Vercel('Moscow')
+        const v2 = new Vercel('Tambov')
+        graph
+        .addVercel(v1)
+        .addVercel(v2)
+        expect(graph.getVercelByTitle('Moscow')).toBe(v1)
+        expect(graph.getVercelByTitle.bind(graph, 'Tula')).toThrow()
+    })
 })

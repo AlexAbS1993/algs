@@ -21,6 +21,13 @@ class Graph{
         }
         throw new Error('Переданные вершины не входят в состав графа')
     }
+    getVercelByTitle(title){
+        let vercel = this.#vercels.find(ver => ver.getTitle() === title)
+        if (vercel == null){
+            throw new Error('Нет такой вершины')
+        }
+        return vercel
+    }
 }
 
 module.exports = Graph
