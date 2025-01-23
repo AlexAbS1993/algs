@@ -37,6 +37,10 @@ describe('Graph является совокупностью Vercel и Edge', () 
             expect(e).toBeDefined()
         }
     })
+    test('Граф способен создавать вершину из названия и добавлять в список вершин', () => {
+        graph.addPoint('Moscow')
+        expect(graph.getVercelCount()).toBe(1)
+    })
     test('Граф может выдавать точку по названию', () => {
         const v1 = new Vercel('Moscow')
         const v2 = new Vercel('Tambov')
