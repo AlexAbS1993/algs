@@ -27,4 +27,8 @@ describe('Edge является ребром, соединяющим 2 точк�
         expect(direction).toBe('0to1')
         expect(weight_measure).toBe('km')
     })
+    test('При создании ребра у вершин появляется отметка о соседе', () => {
+        const [v1, v2] = edge.getVercels()
+        expect(v1.isNighbourdWith(v2)).toBe(true)
+    })
 })

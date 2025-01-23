@@ -8,6 +8,8 @@ class Edge {
     constructor(vercel1, vercel2){
         this.#v1 = vercel1
         this.#v2 = vercel2
+        vercel1.addNighbourd(vercel2)
+        vercel2.addNighbourd(vercel1)
     }
     getVercels(){
         return [
