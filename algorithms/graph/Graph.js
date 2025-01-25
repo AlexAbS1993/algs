@@ -46,6 +46,12 @@ class Graph{
     apply(alg){
         return alg.execute(this)
     }
+    getVercels(){
+        return this.#vercels
+    }
+    getEdges(){
+        return this.#edges
+    }
 }
 
 module.exports = Graph
