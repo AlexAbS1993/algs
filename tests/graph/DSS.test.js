@@ -7,4 +7,7 @@ describe(`DSS - алгоритм для поиска в глубину, отве
         beforeEach(() => {
             dss = new DSS()
         })
+        test('', () => {
+            
+        })
     })
