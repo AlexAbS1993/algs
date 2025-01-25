@@ -17,6 +17,9 @@ class Vercel {
     isNighbourdWith(vercel){
         return this.#nighbourds.includes(vercel)
     }
+    getNighbourds(){
+        return this.#nighbourds
+    }
 }
 
 module.exports = Vercel
