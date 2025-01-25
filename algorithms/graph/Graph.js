@@ -18,10 +18,18 @@ class Graph{
         let vercel = new Vercel(title)
         return this.addVercel(vercel)
     }
-    createEdge(v1, v2){
+    createEdge(v1, v2, options = null){
         if (this.#vercels.includes(v1) && this.#vercels.includes(v2)){
             const edge = new Edge(v1, v2)
             this.#edges.push(edge)
+            if (options){
+                try{
+                    this.#applyOptions(edge, options)
+                }
+                catch(e){
+                    throw new Error(e.message, {cause: e})
+                }
+            }
             return this
         }
         throw new Error('Переданные вершины не входят в состав графа')
@@ -51,6 +59,18 @@ class Graph{
     }
     getEdges(){
         return this.#edges
+    }
+    #applyOptions(edge, options){
+        if (options.dir){
+            edge.setDirection(options.dir)
+        }
+        if (options.weight){
+            edge.setWeight(options.weight)
+        }
+        if (options.weightMeasure){
+            edge.setWeightMeasure(options.weightMeasure)
+        }
+        return
     }
 }
 
