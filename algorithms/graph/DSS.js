@@ -3,7 +3,7 @@ const Graph = require("./Graph");
 class DSS {
   #used = [];
   #vercels = [];
-  #edges = [];
+  #vercelsStack = []
   /**
    * Метод применяет алгоритм на граф. Алгоритм глубокого поиска отвечает на 2 заданные задачи: 
    * 1) Можно ли достичь определенной точки, исходя из другой заданной в опциях точки в типе available
@@ -17,16 +17,11 @@ class DSS {
     if (this.#vercels.length < 1){
         throw new Error('В графе должна быть хотя бы 1 вершина')
     }
-    if (!task){
-        task = {
-            from: this.#vercels[0].getTitle(),
-            type: 'overall'
-        }
-    }
+   this.#checkTaskAndSetDefault(task)
     switch(task.type){
         case 'overall': {
-
-            break
+          this.#computeOverall()
+          break
         }
         case 'available': {
 
@@ -53,8 +48,18 @@ class DSS {
     this.#used = [];
   }
   #setToInnerStateFrom(graph) {
-    this.#edges = graph.getEdges();
     this.#vercels = graph.getVercels();
+  }
+  #computeOverall(){
+
+  }
+  #checkTaskAndSetDefault(task){
+    if (!task){
+      task = {
+          from: this.#vercels[0].getTitle(),
+          type: 'overall'
+      }
+  }
   }
 }
 
