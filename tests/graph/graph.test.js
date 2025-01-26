@@ -68,4 +68,18 @@ describe('Graph является совокупностью Vercel и Edge', () 
         }
         expect(graph.apply(mock_alg)).toBe(1)
     })
+    test('Graph имеет короткий метод множественного добавления точек', () => {
+        graph
+        .addVercelsTitlesSet(['A', 'C', 'L', 'Z'])
+        expect(graph.getVercelCount()).toBe(4)
+        expect(graph.getVercelByTitle('A')).toBeDefined()
+    })
+    test('Graph имеет метод для множественного определения рёбер', () => {
+        graph
+        .addVercelsTitlesSet(['A', 'C', 'L', 'Z'])
+        .defineEdges(['A:C','A:L','Z:L'])
+        expect(graph.getEdgeCount()).toBe(3)
+        expect(graph.getEdges()[0].getVercels()[0].getTitle()).toBe('A')
+        expect(graph.getEdges()[0].getVercels()[1].getTitle()).toBe('C')
+    })
 })
