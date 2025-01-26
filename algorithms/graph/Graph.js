@@ -72,6 +72,22 @@ class Graph{
         }
         return
     }
+    addVercelsTitlesSet(vercelsArray){
+        let vercels = Array.from(new Set(vercelsArray))
+        vercels.forEach(vercelTitle => {
+            this.addPoint(vercelTitle)
+        })
+        return this
+    }
+    defineEdges(strArray){
+        let parseStr = this.#parseStrEdges(strArray) 
+    }
+    #parseStrEdges(strArray){
+        return strArray.map((description) => {
+            let splittedArray = description.split(':')
+            return this.createEdge(this.getVercelByTitle(splittedArray[0]), this.getVercelByTitle(splittedArray[1]))
+        })
+    }
 }
 
 module.exports = Graph
