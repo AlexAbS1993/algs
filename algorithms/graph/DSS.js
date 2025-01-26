@@ -5,6 +5,10 @@ class DSS {
   #used = [];
   #vercels = [];
   #vercelsStack = new Stack();
+  #from = null
+  #to = null
+  #type = null
+  #toVercel = null
   /**
    * Метод применяет алгоритм на граф. Алгоритм глубокого поиска отвечает на 2 заданные задачи:
    * 1) Можно ли достичь определенной точки, исходя из другой заданной в опциях точки в типе available
@@ -14,17 +18,16 @@ class DSS {
    */
   execute(graph, task) {
     this.#prepearToAlg();
-    this.#setToInnerStateFrom(graph);
+    this.#setToInnerStateFrom(graph, task);
     if (this.#vercels.length < 1) {
       throw new Error("В графе должна быть хотя бы 1 вершина");
     }
-    task =this.#checkTaskAndSetDefault(task);
-    switch (task.type) {
+    switch (this.#type) {
       case "overall": {
-        return this.#computeOverall(task.from);
+        return this.#computeOverall(this.#from);
       }
       case "available": {
-        break;
+        return this.#computeAvailable(this.#from)
       }
       default: {
         throw new Error("Подобный тип алгоритма еще не был рализован");
@@ -33,11 +36,26 @@ class DSS {
   }
   #prepearToAlg() {
     this.#used = [];
+    this.#from = null
+    this.#to = null
+    this.#type = null
+    this.#toVercel = null
+    this.#vercelsStack = new Stack()
   }
-  #setToInnerStateFrom(graph) {
+  #setToInnerStateFrom(graph, task) {
     this.#vercels = graph.getVercels();
+    let {from, to, type} = this.#checkTaskAndSetDefault(task)
+    this.#from = from
+    if (to){
+      this.#to = to ? to : this.#to
+      this.#toVercel = this.#vercels.find((ver) => ver.getTitle() === this.#to);
+    }
+    this.#type = type
   }
   #computeOverall(from) {
+    if (this.#toVercel && this.#used.includes(this.#toVercel)){
+        return this.#used
+    }
     // Начинаем с заданной точки
     let vercel = this.#vercels.find((ver) => ver.getTitle() === from);
     // Если точка не посещена
@@ -61,7 +79,10 @@ class DSS {
       return this.#computeOverall(this.#vercelsStack.get().getTitle());
     }
   }
-
+  #computeAvailable(from){
+      this.#computeOverall(from)
+      return this.#used.includes(this.#toVercel)
+  }
   #checkTaskAndSetDefault(task) {
     if (!task) {
       return {
@@ -81,6 +102,7 @@ class DSS {
         type: task.type
       }
     }
+    return task
   }
 }
 

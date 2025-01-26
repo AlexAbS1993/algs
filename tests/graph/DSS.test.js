@@ -43,4 +43,12 @@ describe(`DSS - алгоритм для поиска в глубину, отве
             expect(reached2.includes(mockGraph.getVercelByTitle('A'))).toBe(false)
             expect(reached2.length).toBe(3)
         })
+        test('Алгоритм предлагает так же дать ответ на вопрос, а возможно ли с какой-либо точки добраться до другой точки', () => {
+            let available = dss.execute(mockGraph, {from: 'A', to: 'F', type: 'available'})
+            expect(available).toBe(true)
+        })
+        test('Алгоритм выдает недоступность достижения точки, если нет высот, соединяющих ребрами эти точки', () => {
+            let notAvailable = dss.execute(mockGraph, {from: 'Z', to: 'B', type: 'available'})
+            expect(notAvailable).toBe(false)
+        })
     })
