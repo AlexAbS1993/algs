@@ -31,9 +31,16 @@ describe(`DSS - алгоритм для поиска в глубину, отве
         beforeEach(() => {
             dss = new DSS()
         })
-        test('test', () => {
+        test('Проверка работоспособности алгоритма при разных входных данных', () => {
             let reached = dss.execute(mockGraph)
             expect(reached.includes(mockGraph.getVercelByTitle('A'))).toBe(true)
             expect(reached.includes(mockGraph.getVercelByTitle('B'))).toBe(true)
+            expect(reached.length).toBe(7)
+            let reached2 = dss.execute(mockGraph, {from:'Z'})
+            expect(reached2.includes(mockGraph.getVercelByTitle('Z'))).toBe(true)
+            expect(reached2.includes(mockGraph.getVercelByTitle('Y'))).toBe(true)
+            expect(reached2.includes(mockGraph.getVercelByTitle('X'))).toBe(true)
+            expect(reached2.includes(mockGraph.getVercelByTitle('A'))).toBe(false)
+            expect(reached2.length).toBe(3)
         })
     })
