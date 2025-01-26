@@ -69,6 +69,18 @@ class DSS {
         type: "overall",
       };
     }
+    if(!task.type){
+      return {
+        from: task.from,
+        type: 'overall'
+      }
+    }
+    if(!task.from){
+      return {
+        from: this.#vercels[0].getTitle(),
+        type: task.type
+      }
+    }
   }
 }
 
