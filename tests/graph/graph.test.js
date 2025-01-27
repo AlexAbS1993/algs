@@ -1,4 +1,4 @@
-const Graph = require("../../algorithms/graph/Graph")
+const {Graph} = require("../../algorithms/graph/Graph")
 const Vercel = require("../../algorithms/graph/Vercel")
 
 describe('Graph является совокупностью Vercel и Edge', () => {
