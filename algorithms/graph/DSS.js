@@ -1,5 +1,5 @@
 const Stack = require("../stack");
-const Graph = require("./Graph");
+const {AbstractGraph} = require("./Graph");
 
 class DSS {
   #used = [];
@@ -13,12 +13,14 @@ class DSS {
    * Метод применяет алгоритм на граф. Алгоритм глубокого поиска отвечает на 2 заданные задачи:
    * 1) Можно ли достичь определенной точки, исходя из другой заданной в опциях точки в типе available
    * 2) Какие точки вообще можно обойти, если начинает с точки from в типе overall
-   * @param {Graph} graph
+   * @param {AbstractGraph} graph
    * @param {{type: 'overall'|'available', from: string, to?: string}} task
    */
   execute(graph, task) {
+    let modifiedTask = this.#checkTaskAndSetDefault(task)
+    this.#validate(graph, modifiedTask)
     this.#prepearToAlg();
-    this.#setToInnerStateFrom(graph, task);
+    this.#setToInnerStateFrom(graph, modifiedTask);
     if (this.#vercels.length < 1) {
       throw new Error("В графе должна быть хотя бы 1 вершина");
     }
@@ -44,7 +46,7 @@ class DSS {
   }
   #setToInnerStateFrom(graph, task) {
     this.#vercels = graph.getVercels();
-    let {from, to, type} = this.#checkTaskAndSetDefault(task)
+    let {from, to, type} = task
     this.#from = from
     if (to){
       this.#to = to ? to : this.#to
@@ -103,6 +105,11 @@ class DSS {
       }
     }
     return task
+  }
+  #validate(graph, task){
+    if (!!(graph instanceof Graph)){
+
+    }
   }
 }
 

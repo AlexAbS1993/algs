@@ -1,5 +1,5 @@
 const DSS = require("../../algorithms/graph/DSS")
-const Graph = require("../../algorithms/graph/Graph")
+const {Graph} = require("../../algorithms/graph/Graph")
 
 describe(`DSS - алгоритм для поиска в глубину, отвечающий на вопросы: 
     1) Возможно ли добраться до конкретной точки;
@@ -50,5 +50,14 @@ describe(`DSS - алгоритм для поиска в глубину, отве
         test('Алгоритм выдает недоступность достижения точки, если нет высот, соединяющих ребрами эти точки', () => {
             let notAvailable = dss.execute(mockGraph, {from: 'Z', to: 'B', type: 'available'})
             expect(notAvailable).toBe(false)
+        })
+        test('Пробуем передавать в execute значения вершин, которых не существует. Ожидаем ошибку', () => {
+            try{
+                dss.execute(mockGraph, {from: 'O', to: 'F', type: 'available'})
+            }
+            catch(e){
+                expect(e).toBeDefined()
+                expect(e.message).toMatch('не существует')
+            }
         })
     })
