@@ -1,24 +1,26 @@
 const Stack = require("../stack");
-const Graph = require("./Graph");
+const { AbstractGraph } = require("./Graph");
 
 class DSS {
   #used = [];
   #vercels = [];
   #vercelsStack = new Stack();
-  #from = null
-  #to = null
-  #type = null
-  #toVercel = null
+  #from = null;
+  #to = null;
+  #type = null;
+  #toVercel = null;
   /**
    * Метод применяет алгоритм на граф. Алгоритм глубокого поиска отвечает на 2 заданные задачи:
    * 1) Можно ли достичь определенной точки, исходя из другой заданной в опциях точки в типе available
    * 2) Какие точки вообще можно обойти, если начинает с точки from в типе overall
-   * @param {Graph} graph
+   * @param {AbstractGraph} graph
    * @param {{type: 'overall'|'available', from: string, to?: string}} task
    */
   execute(graph, task) {
+    let modifiedTask = this.#checkTaskAndSetDefault(graph, task);
+    this.#validate(graph, modifiedTask);
     this.#prepearToAlg();
-    this.#setToInnerStateFrom(graph, task);
+    this.#setToInnerStateFrom(graph, modifiedTask);
     if (this.#vercels.length < 1) {
       throw new Error("В графе должна быть хотя бы 1 вершина");
     }
@@ -27,7 +29,7 @@ class DSS {
         return this.#computeOverall(this.#from);
       }
       case "available": {
-        return this.#computeAvailable(this.#from)
+        return this.#computeAvailable(this.#from);
       }
       default: {
         throw new Error("Подобный тип алгоритма еще не был рализован");
@@ -36,25 +38,25 @@ class DSS {
   }
   #prepearToAlg() {
     this.#used = [];
-    this.#from = null
-    this.#to = null
-    this.#type = null
-    this.#toVercel = null
-    this.#vercelsStack = new Stack()
+    this.#from = null;
+    this.#to = null;
+    this.#type = null;
+    this.#toVercel = null;
+    this.#vercelsStack = new Stack();
   }
   #setToInnerStateFrom(graph, task) {
     this.#vercels = graph.getVercels();
-    let {from, to, type} = this.#checkTaskAndSetDefault(task)
-    this.#from = from
-    if (to){
-      this.#to = to ? to : this.#to
+    let { from, to, type } = task;
+    this.#from = from;
+    if (to) {
+      this.#to = to ? to : this.#to;
       this.#toVercel = this.#vercels.find((ver) => ver.getTitle() === this.#to);
     }
-    this.#type = type
+    this.#type = type;
   }
   #computeOverall(from) {
-    if (this.#toVercel && this.#used.includes(this.#toVercel)){
-        return this.#used
+    if (this.#toVercel && this.#used.includes(this.#toVercel)) {
+      return this.#used;
     }
     // Начинаем с заданной точки
     let vercel = this.#vercels.find((ver) => ver.getTitle() === from);
@@ -79,30 +81,60 @@ class DSS {
       return this.#computeOverall(this.#vercelsStack.get().getTitle());
     }
   }
-  #computeAvailable(from){
-      this.#computeOverall(from)
-      return this.#used.includes(this.#toVercel)
+  #computeAvailable(from) {
+    this.#computeOverall(from);
+    return this.#used.includes(this.#toVercel);
   }
-  #checkTaskAndSetDefault(task) {
+  #checkTaskAndSetDefault(graph, task) {
     if (!task) {
       return {
-        from: this.#vercels[0].getTitle(),
+        from: graph.getVercels()[0].getTitle(),
         type: "overall",
       };
     }
-    if(!task.type){
+    if (!task.type) {
       return {
         from: task.from,
-        type: 'overall'
-      }
+        type: "overall",
+      };
     }
-    if(!task.from){
+    if (!task.from) {
       return {
-        from: this.#vercels[0].getTitle(),
-        type: task.type
+        from: graph.getVercels()[0].getTitle(),
+        type: task.type,
+      };
+    }
+    return task;
+  }
+
+  #validate(graph, task) {
+    this.#checkInstanceOfGraph(graph);
+    this.#checkTaskType(task)
+    this.#checkVercelsExistenceInTask(graph, task)
+  }
+  #checkInstanceOfGraph(graph) {
+    if (!(graph instanceof AbstractGraph)) {
+      throw new Error(
+        "Граф не соответствует требуемому интерфейсу AbstractGraph"
+      );
+    }
+  }
+  #checkVercelsExistenceInTask(graph, task){
+    const {from, to} = task
+    try{
+      graph.getVercelByTitle(from)
+      if (task.type === 'available'){
+        graph.getVercelByTitle(to)
       }
     }
-    return task
+    catch(e){
+      throw new Error('Запрашиваемых алгоритмом вершин или одной из них не существует.', {cause: e})
+    }
+  }
+  #checkTaskType(task){
+    if (task.type !== 'available' && task.type !== 'overall'){
+      throw new Error("Неизвестная алгоритмическая задача. Допускаются только overall и available")
+    }
   }
 }
 
