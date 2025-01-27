@@ -1,7 +1,51 @@
 const Edge = require("./Edge")
 const Vercel = require("./Vercel")
 
-class Graph{
+class AbstractGraph {
+    constructor(){
+        if (this.constructor == AbstractGraph) {
+            throw new Error('Abstract classes can\'t be instantiated.');
+          }
+    }
+    getEdgeCount(){
+        throw new Error('Method must be implemented.');
+    }
+    getVercelCount(){
+        throw new Error('Method must be implemented.');
+    }
+    addVercel(vercel){
+        throw new Error('Method must be implemented.');
+    }
+    addPoint(title){
+        throw new Error('Method must be implemented.');
+    }
+    createEdge(v1, v2, options = null){
+        throw new Error('Method must be implemented.');
+    }
+    getVercelByTitle(title){
+        throw new Error('Method must be implemented.');
+    }
+    getEdgesByVercelTitle(title){
+        throw new Error('Method must be implemented.');
+    }
+    apply(alg){
+        throw new Error('Method must be implemented.');
+    }
+    getVercels(){
+        throw new Error('Method must be implemented.');
+    }
+    getEdges(){
+        throw new Error('Method must be implemented.');
+    }
+    addVercelsTitlesSet(vercelsArray){
+        throw new Error('Method must be implemented.');
+    }
+    defineEdges(strArray){
+        throw new Error('Method must be implemented.');
+    }
+}
+
+class Graph extends AbstractGraph{
     #edges = []
     #vercels = []
     getEdgeCount(){
@@ -90,4 +134,4 @@ class Graph{
     }
 }
 
-module.exports = Graph
+module.exports = {Graph, AbstractGraph}
