@@ -7,7 +7,7 @@ class Heap {
             // Корретный I определяется с целью вычисления родителей и соседей, 
             // так как в heap нумерация индексов начинается с 1 и следует по формуле parent=v left=2v right=2v+1
             let correctI = i+1
-            this.#siftUp(correctI)
+            this.#siftDown(correctI)
         }
     }
     /**
@@ -19,37 +19,18 @@ class Heap {
     #siftUp(i){
         if (i === 1){
             return
-        }
-        let left = i%2 === 0 ? i : i-1
-        let right = left === i ? i+1 : i
-        
-        let parent = left/2
-        let min
-        let max
-        if(left === this.#arr.length){
-            min = left
-            max = left
-        }
-        else {
-            if(this.#arr[left-1] < this.#arr[right-1]){
-                min = left
-                max = right
-            }
-            else {
-                min = right
-                max = left
-            }
-        }
-        if (this.#arr[min-1] > this.#arr[parent-1]){
-            return
-        }
-        else {
+        }       
+        let parent = Math.floor(i/2)
+        if(this.#arr[i-1] < this.#arr[parent - 1]){
             let temp = this.#arr[parent-1]
-            this.#arr[parent-1] = this.#arr[min-1]
-            this.#arr[min-1] = temp
-            return this.#siftDown(min)
+            this.#arr[parent-1] = this.#arr[i-1]
+            this.#arr[i-1] = temp
+            return this.#siftUp(parent)
         }
-    }
+        else{
+            return
+        }    
+        }
     #siftDown(i){
         let length = this.#arr.length
         if (i*2 > length){
