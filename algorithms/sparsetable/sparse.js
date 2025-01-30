@@ -13,6 +13,35 @@ class SparseTable {
     getParsed(){
         return this.#parsedMinData
     }
+    /**
+     * 
+     * @param {string} range ренж индексов, в которых мы ищем минимальное значение. Указывается от n:(до)m
+     */
+    getMin(range){
+        let [from, to] = this.#parseRange(range)
+        if (to >= this.#arr.length){
+            to = this.#arr.length - 1
+        }
+        let length = (to - from) + 1
+        let keys = Object.keys(this.#parsedMinData)
+        if (keys.includes(length)){
+            return this.#parsedMinData[length][`${from}:${to}`]
+        }
+        else {
+            let requeredRange
+            for (let i = 0, j = 1; i < keys.length; i++,j++ ){
+                if (length > keys[i] && length < keys[j]){
+                    requeredRange = keys[i]
+                }
+            }
+            let firstRange = this.#parsedMinData[requeredRange][`${from}:${Number(from) + Number(requeredRange)-1}`]
+            let secondRange = this.#parsedMinData[requeredRange][`${to - requeredRange + 1}:${to}`]
+            return firstRange < secondRange ? firstRange : secondRange
+        }
+    }
+    #parseRange(str){
+        return str.split(':')
+    }
     #prepare(){
         let arrLength = this.#arr.length
         let indexesCount = Math.ceil(Math.log2(arrLength))
