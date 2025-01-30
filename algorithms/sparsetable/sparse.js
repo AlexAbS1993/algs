@@ -2,6 +2,9 @@ class SparseTable {
     #arr
     #parsedMinData = {}
     constructor(arr){
+        if (arr.length === 0){
+            throw new Error('Необходим массив с данными')
+        }
         this.#arr = arr
         Object.freeze(this.#arr)
         this.#prepare()
@@ -19,12 +22,18 @@ class SparseTable {
      */
     getMin(range){
         let [from, to] = this.#parseRange(range)
+        if (Number(from) > this.#arr.length - 1){
+            from = '0'
+        }
         if (to >= this.#arr.length){
-            to = this.#arr.length - 1
+                to = String(this.#arr.length - 1)
         }
         let length = (to - from) + 1
         let keys = Object.keys(this.#parsedMinData)
-        if (keys.includes(length)){
+        if (keys.includes(String(length))){
+            if (length === 1){
+                return this.#parsedMinData[length][`${from}`]
+            }
             return this.#parsedMinData[length][`${from}:${to}`]
         }
         else {
