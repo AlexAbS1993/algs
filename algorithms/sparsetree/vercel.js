@@ -59,6 +59,13 @@ class SparseVercel {
             from, to
         }
     }
+    setIndex(index){
+        this.#index = index
+        return this
+    }
+    getIndex(){
+        return this.#index
+    }
 }
 
 module.exports = SparseVercel
