@@ -1,4 +1,4 @@
-class MergeSort{
+class QuickSort{
     sort(arr){
         if (arr.length <= 1){
             return arr
@@ -69,4 +69,4 @@ class MergeSort{
     }
 }
 
-module.exports = MergeSort
+module.exports = QuickSort
