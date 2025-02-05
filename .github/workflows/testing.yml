@@ -1,8 +1,5 @@
 name: Algorithm Testing
-on: 
-  push: 
-    branches-ignore: 
-      - main
+on: push
 jobs: 
   general-test-suits:
     runs-on: ubuntu-latest
