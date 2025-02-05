@@ -7,7 +7,9 @@ jobs:
   general-test-suits:
     runs-on: ubuntu-latest
     steps:
-      - name: Установка зависимостей
+      - name: Загрузка проекта
         uses: actions/checkout@v4
+      - name: Установка зависимостей
+        run: npm ci
       - name: Запуск тестов
         run: npm run test
