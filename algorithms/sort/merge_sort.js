@@ -1,8 +1,46 @@
 class MergeSort{
     sort(arr){
-
+        if (arr.length <= 1){
+            return arr
+        }
+        else {
+            let {left, rigth, center } = this.pivotSplit(arr)
+            return this.merge(this.sort(left), center, this.sort(rigth))
+        }
     }
-    merge(a1, a2){
+    pivotSplit(arr){
+        let pivot = arr[Math.ceil(arr.length/2) - 1]
+        let left = []
+        let rigth = []
+        let center = []
+        for(let i = 0; i < arr.length; i++){
+            if (arr[i] === pivot){
+                center.push(arr[i])
+                continue
+            }
+            if (arr[i] < pivot){
+                left.push(arr[i])
+                continue
+            }
+            else {
+                rigth.push(arr[i])
+                continue
+            }
+        }
+        return {
+            left, rigth, center
+        }
+    }
+    merge(...args){
+        let result = this.#merge(args[0], args[1])
+        let point = 2
+        while(point < args.length){
+            result = this.#merge(result, args[point])
+            point++
+        }
+        return result
+    }
+    #merge(a1, a2){
         let mergedArray = []
         let i = 0, j =0
         while(i < a1.length || j < a2.length){
