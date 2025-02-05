@@ -1,0 +1,10 @@
+name: Тестирование алгоритмов
+on: push
+jobs:
+  general-test-suits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Установка зависимостей
+        uses: actions/checkout@v4
+      - name: Запуск тестов
+        run: npm run test
