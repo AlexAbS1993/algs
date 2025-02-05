@@ -56,7 +56,7 @@ class SparseVercel {
             to = from
         }
         return {
-            from, to
+            from: Number(from), to: Number(to)
         }
     }
     setIndex(index){

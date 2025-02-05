@@ -4,11 +4,11 @@ describe("Все элементы массива, входящего в сист
   describe("SparseVercel включает в себя информацию об области покрытия", () => {
     test("При создании vercel типа leaf принимается 1 значение и определяет его во from и to", () => {
       let vercel = new SparseVercel("1");
-      expect(vercel.getRange()).toStrictEqual({ from: "1", to: "1" });
+      expect(vercel.getRange()).toStrictEqual({ from: 1, to: 1 });
     });
     test("При определении большего диапазона vercel отправляет данные по диапазону, предварительно спарсив строку n:r", () => {
       let ver2 = new SparseVercel("1:4");
-      expect(ver2.getRange()).toStrictEqual({ from: "1", to: "4" });
+      expect(ver2.getRange()).toStrictEqual({ from: 1, to: 4 });
     });
   });
   test("SparseVercel может принимать к себе детей и быть родителем", () => {
