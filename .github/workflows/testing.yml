@@ -4,10 +4,10 @@ on:
     branches-ignore: 
       - main
 jobs: 
-  general_test_suits:
+  general-test-suits:
     runs-on: ubuntu-latest
     steps:
-      - name: Установка необходимых зависимостей
-      uses: actions/checkout@v4
-      - name Запуск тестов
-      run: npm run test
+      - name: Установка зависимостей
+        uses: actions/checkout@v4
+      - name: Запуск тестов
+        run: npm run test
