@@ -4,10 +4,12 @@ class SparseTree{
     #originArray
     #tree = []
     constructor(array){
+        this.#validateConstructorInputData(array)
         this.#originArray = array
         this.#initializeTree()
     }
     getSumByRange(range){
+        this.#validateRange(range)
         let [from, to] = this.#parseRange(range)
         // Установка валидных значений для from и to в случае передачи ренжи больше, чем размер массива или меньше
         return this.#getSum(from, to, this.#tree[0])
@@ -97,6 +99,27 @@ class SparseTree{
                 rowsMatrix[rowsMatrixLength].push(ver)
             }
             return this.#createRowsMatrix(rowsMatrix)
+        }
+    }
+
+    #validateConstructorInputData(array){
+        if (array.length === 0){
+            throw new Error('Необходимо передать не пустой массив')
+        }
+        if(!array.every(value => typeof value === 'number')){
+            throw new Error('Тип данных в массиве должен быть number')
+        }
+    }
+    #validateRange(range){
+        if (typeof range !== 'string'){
+            throw new Error('В качестве аргумента передана должна быть строка')
+        }
+        if (!range.includes(':')){
+            throw new Error('Неверный формат ренжи. Ренж необходимо передавать в виде "num:num"')
+        }
+        let splited = this.#parseRange(range)
+        if (splited.from > splited.to){
+            throw new Error('Точко "от" не должна быть больше точки "до"')
         }
     }
 }
