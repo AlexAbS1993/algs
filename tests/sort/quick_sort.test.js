@@ -12,4 +12,13 @@ describe('QuickSort - метод сортировки, который базир
         let qs = new QuickSort()
         expect(qs.sort(arr)).toEqual([-22, 0, 2, 5, 10, 11])
     })
+    test('В сорт необходимо передавать объекты одного типа', () => {
+        let qs = new QuickSort()
+        try{
+            qs.sort([1, 'hello', true, [false, false, '1']])
+        }
+        catch(e){   
+            expect(e.message).toMatch('должны быть одного типа')
+        }
+    })
 })

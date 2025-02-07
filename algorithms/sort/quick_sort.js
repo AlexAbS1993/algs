@@ -1,14 +1,15 @@
 class QuickSort{
     sort(arr){
+        this.#validate(arr)
         if (arr.length <= 1){
             return arr
         }
         else {
-            let {left, rigth, center } = this.pivotSplit(arr)
+            let {left, rigth, center } = this.#pivotSplit(arr)
             return this.merge(this.sort(left), center, this.sort(rigth))
         }
     }
-    pivotSplit(arr){
+    #pivotSplit(arr){
         let pivot = arr[Math.ceil(arr.length/2) - 1]
         let left = []
         let rigth = []
@@ -33,10 +34,10 @@ class QuickSort{
     }
     merge(...args){
         let result = this.#merge(args[0], args[1])
-        let point = 2
-        while(point < args.length){
-            result = this.#merge(result, args[point])
-            point++
+        let next_fn_point = 2
+        while(next_fn_point < args.length){
+            result = this.#merge(result, args[next_fn_point])
+            next_fn_point++
         }
         return result
     }
@@ -66,6 +67,12 @@ class QuickSort{
             }
         }
         return mergedArray
+    }
+    #validate(arr){
+        let firstItemTypeFromArr = typeof arr[0]
+        if (!arr.every(item => typeof item === firstItemTypeFromArr)){
+            throw new Error('Данные в массиве должны быть одного типа')
+        }
     }
 }
 
