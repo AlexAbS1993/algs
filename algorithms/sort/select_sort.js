@@ -7,6 +7,17 @@ class SelectSort{
     sort(arr){
         this.#validate(arr)
         this.defineMax(arr)
+        this.buildDictionary(arr)
+        let result = []
+        for (let i = 0; i <= this.max; i++){
+            if(this.dictionary[i]){
+                for (let j = 0; j < this.dictionary[i]; j++){
+                    result.push(i)
+                }
+            }
+        }
+        this.#setDefault()
+        return result
     }
     defineMax(arr){
         this.max = Math.max.apply(this, arr)
@@ -31,6 +42,10 @@ class SelectSort{
         if(!arr.every(n => n >= 0)){
             throw new Error('Все числа должны быть больше нуля')
         }
+    }
+    #setDefault(){
+        this.dictionary = {}
+        this.max = -Infinity
     }
 }
 
