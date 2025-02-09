@@ -12,6 +12,17 @@ class SelectSort{
         this.max = Math.max.apply(this, arr)
         return this.max
     }
+    buildDictionary(arr){
+        arr.forEach(num => {
+            if(!this.dictionary[num]){
+                this.dictionary[num] = 1
+            }
+            else {
+                this.dictionary[num] += 1
+            }
+        })
+        return this.dictionary
+    }
     #validate(arr){
         const requiredType = 'number'
         if (!arr.every(n => typeof n === requiredType)){
