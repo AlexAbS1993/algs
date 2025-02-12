@@ -73,8 +73,8 @@ class Cell{
         return result
     }
     fix(){
-        let less = this.#createCellFromArray(this.#valuesArray.slice(0, this.#devideIndex))
-        let more = this.#createCellFromArray(this.#valuesArray.slice(this.#devideIndex))
+        let less = Cell.createCellFromArray(this.#valuesArray.slice(0, this.#devideIndex), this.#degree)
+        let more = Cell.createCellFromArray(this.#valuesArray.slice(this.#devideIndex), this.#degree)
         return {
             less, more, overloadedElement: this.#overloadedElement
         }
@@ -93,8 +93,8 @@ class Cell{
         let cellElement = this.#valuesArray[index]
         return {less: cellElement.less, more: cellElement.more}
     }
-    #createCellFromArray(elementsArray){
-        let cell = new Cell(this.#degree)
+    static createCellFromArray(elementsArray, degree){
+        let cell = new Cell(degree)
         for (let el of elementsArray){
             cell.addValue(el)
         }
