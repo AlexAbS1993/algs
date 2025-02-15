@@ -1,6 +1,6 @@
-const DP_Element = require("./dp")
+const DP_Element = require("../dp")
 
-class Jumping{
+class JumpingV1{
     #min_step = 1
     #max_step = 2
     #ladder
@@ -19,7 +19,7 @@ class Jumping{
         return this.get_result()
     }
     calculate_base(){
-        let element = new DP_Element(0)
+        let element = new DP_Element(0, 0)
         element.setSum(0)
         this.#dp[0].push(element)
     }
@@ -34,7 +34,7 @@ class Jumping{
         }
     }
     add_data_to_dp(i, step){
-        let element = new DP_Element(this.#ladder[i+step]).setFrom(i)
+        let element = new DP_Element(this.#ladder[i+step], i+step).setFrom(i)
         let sum = this.#defineMaxSum(this.#dp[i])
         element.setSum(sum)
         this.#dp[i+step]
@@ -59,13 +59,12 @@ class Jumping{
             max_result_path.push(max)
         }
         this.#result.max_sum = max_result_path[max_result_path.length - 1].sum
-        this.#result.path = `=>finish`
         let index = max_result_path.length - 2
+        this.#result.path = []
         while(index > 0){
-            this.#result.path = `=>${index}(${max_result_path[index].sum})${this.#result.path}`
+            this.#result.path.push(max_result_path[index])
             index = max_result_path[index].from
         }
-        this.#result.path = `start${this.#result.path}`
         return this.#result
     }
     #dp_create(ladder){
@@ -81,4 +80,4 @@ class Jumping{
     }
 }
 
-module.exports = Jumping
+module.exports = JumpingV1
