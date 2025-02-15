@@ -2,8 +2,10 @@ class DP_Element {
     from
     sum
     value
-    constructor(value){
+    index
+    constructor(value, index){
         this.value = value
+        this.index = index
     }
     setSum(prev_sum){
         this.sum = this.value + prev_sum
