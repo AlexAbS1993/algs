@@ -20,6 +20,7 @@ class Jumping{
     }
     calculate_base(){
         let element = new DP_Element(0)
+        element.setSum(0)
         this.#dp[0].push(element)
     }
     cicle_calculate(){
@@ -33,10 +34,18 @@ class Jumping{
         }
     }
     add_data_to_dp(i, step){
+        let element = new DP_Element(this.#ladder[i+step]).setFrom(i)
+        let sum = this.#defineMaxSum(this.#dp[i])
+        element.setSum(sum)
         this.#dp[i+step]
-        .push(new DP_Element(this.#ladder[i+step])
-        .setFrom(i)
-        .setSum(this.#ladder[i]) )
+        .push(element)
+    }
+    #defineMaxSum(dpCell){
+        let maxSumElement = {sum: - Infinity}
+        dpCell.forEach((el) => {
+            maxSumElement = el.sum > maxSumElement.sum ? el : maxSumElement
+        })
+        return maxSumElement.sum
     }
     get_result(){
         let max_result_path = []
@@ -50,9 +59,13 @@ class Jumping{
             max_result_path.push(max)
         }
         this.#result.max_sum = max_result_path[max_result_path.length - 1].sum
-        this.#result.path = max_result_path.reduce((prev, current) => {
-            return prev + `=> ${current.from}`
-        }, '')
+        this.#result.path = `=>finish`
+        let index = max_result_path.length - 2
+        while(index > 0){
+            this.#result.path = `=>${index}(${max_result_path[index].sum})${this.#result.path}`
+            index = max_result_path[index].from
+        }
+        this.#result.path = `start${this.#result.path}`
         return this.#result
     }
     #dp_create(ladder){
@@ -62,6 +75,9 @@ class Jumping{
     }
     get_dp(){
         return this.#dp
+    }
+    print_result(command){
+        return command.print(this.#result)
     }
 }
 
