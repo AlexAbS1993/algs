@@ -75,9 +75,9 @@ class JumpingV1{
     get_dp(){
         return this.#dp
     }
-    print_result(command){
-        return command.print(this.#result)
-    }
+    // print_result(command){
+    //     return command.print(this.#result)
+    // }
 }
 
 module.exports = JumpingV1
