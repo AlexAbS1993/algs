@@ -10,7 +10,7 @@ class Jump {
         this.#jumping.calculate()
     }
     getResult(command){
-        return command.print(this.#jumping.getResult())
+        return command.execute(this.#jumping.get_result())
     }
 }
 
