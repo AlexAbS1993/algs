@@ -13,8 +13,8 @@ describe('Задачка с черепашкой находит количест
         turtle_max.calculateCountOfWaysFromStartToFinal()
         turtle_middle.calculateCountOfWaysFromStartToFinal()
         expect(turtle.getResult(turtle.operations.count_ways)).toEqual({count:6})
-        expect(turtle.getResult(turtle.operations.count_ways)).toEqual({count:48620})
-        expect(turtle.getResult(turtle.operations.count_ways)).toEqual({count:252})
+        expect(turtle_max.getResult(turtle.operations.count_ways)).toEqual({count:48620})
+        expect(turtle_middle.getResult(turtle.operations.count_ways)).toEqual({count:252})
     })
    
 })
