@@ -10,7 +10,7 @@ class MapForTurtle {
     }
     #validate(xCount, yCount){
         if (!xCount || !yCount){
-            throw new Error('Недостаточно аргументов для конструктора')
+            throw new Error('Недостаточно аргументов для конструктора или передана не матрица')
         }
         if (typeof xCount !== 'number' || typeof yCount !== 'number'){
             throw new Error('Значение рядов и колонок должно быть числом')
