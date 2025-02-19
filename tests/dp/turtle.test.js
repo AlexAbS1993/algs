@@ -16,5 +16,25 @@ describe('Задачка с черепашкой находит количест
         expect(turtle_max.getResult(turtle.operations.count_ways)).toEqual({count:48620})
         expect(turtle_middle.getResult(turtle.operations.count_ways)).toEqual({count:252})
     })
-   
+   test('Алгоритм считает лучший маршрут по набору баллов', () => {
+        let mini_map = MapForTurtle.createMapFromArray([[0, 1, 3], [2, 3, 1], [1, 4, 0]])
+        let turtle = new TurtleV1(mini_map)
+        turtle.calculateTheMostValuableWay()
+        const result = turtle.getResult(turtle.operations.valueable_way)
+        expect(result.sum).toBe(9)
+   })
+   describe('Алгоритм работает с неправильными входными данными и верно на них реагирует', () => {
+        test('Если в алгоритм передана карта только из 1 столбца или 1 строки, то алгоритм отрабатывает правильно', () => {
+            let mini_map = MapForTurtle.createMapFromArray([[0], [2], [3]])
+            let mini_map2 = MapForTurtle.createMapFromArray([[0, 2, 3]]) 
+            let turtle = new TurtleV1(mini_map)
+            let turtle2 = new TurtleV1(mini_map2)
+            turtle.calculateTheMostValuableWay()
+            turtle2.calculateTheMostValuableWay()
+            const result = turtle.getResult(turtle.operations.valueable_way)
+            const result2 = turtle2.getResult(turtle2.operations.valueable_way)
+            expect(result.sum).toBe(5)
+            expect(result2.sum).toBe(5)
+        })
+   })
 })
