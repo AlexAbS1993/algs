@@ -1,6 +1,6 @@
 {
   "name": "algs",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Здесь тестируются разного рода алгоритмы и задачи",
   "main": "index.js",
   "directories": {
